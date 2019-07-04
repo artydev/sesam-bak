@@ -1,5 +1,5 @@
-const users = require('./users/users.route');
+const entrepriseRouter = require('./entreprise.route');
 
 module.exports = function(app) {
-  app.use('/users', users);
+  app.use('/entreprise', entrepriseRouter);
 };
