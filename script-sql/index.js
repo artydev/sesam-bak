@@ -1,22 +1,46 @@
 const sql = require('mssql')
 const nano = require('nano')('http://localhost:5984');
 
-
 const queryTable = [
-//     {
-//         table:'dossiers',
-//         query:'select * from DOSSIER',
-//         idField: 'DOSSIER_IDENT'
-// },
+    {
+        table:'dossiers',
+        query:`select * from DOSSIER
+        join TACHE_PROGRAMMEE on TACHE_PROGRAMMEE.TAPR_IDENT = DOSSIER.TAPR_IDENT
+        where RESPONSABLE_AGENT_DD_IDENT > 4500 and RESPONSABLE_AGENT_DD_IDENT<5000`,
+        idField: 'DOSSIER_IDENT'
+},
+];
+const queryTable2 = [
+        {
+            table:'produit-cpf',
+            query:`select * from PRODUIT_CPF`,
+            idField: 'CPF_IDENT'
+    },
+    {
+        table:'activite',
+        query:`select * from ACTIVITE_DG`,
+        idField: 'ACDG_IDENT'
+    },
+    {
+        table:'dossiers',
+        query:`select * from DOSSIER
+        join TACHE_PROGRAMMEE on TACHE_PROGRAMMEE.TAPR_IDENT = DOSSIER.TAPR_IDENT
+        where RESPONSABLE_AGENT_DD_IDENT > 4500 and RESPONSABLE_AGENT_DD_IDENT<5000`,
+        idField: 'DOSSIER_IDENT'
+},
 {
     table:'visites',
-    query:'select * from VISITE left join ETABLISSEMENT_OBSERVE on  ETABLISSEMENT_OBSERVE.ETOB_IDENT = VISITE.ETOB_IDENT',
+    query:`select * from VISITE 
+    left join ETABLISSEMENT_OBSERVE 
+    on  ETABLISSEMENT_OBSERVE.ETOB_IDENT = VISITE.ETOB_IDENT
+    where AGENT_DD_IDENT > 4500 and AGENT_DD_IDENT<5000`,
     idField: 'VISITE_IDENT'
 
 },
 {
     table:'controles',
-    query:'select * from CONTROLE ',
+    query:`select * from CONTROLE 
+    where AGENT_DD_IDENT > 4500 and AGENT_DD_IDENT<5000`,
     idField: 'CONTROLE_IDENT'
 }
 ];
