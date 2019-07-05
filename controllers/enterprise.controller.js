@@ -1,4 +1,5 @@
-const sql = require('mssql')
+const sql = require('mssql');
+const config = require('../config');
 
 
 module.exports.getTopEnterpriseBySearch = async (searchQuery,k=10) => {
@@ -8,7 +9,7 @@ module.exports.getTopEnterpriseBySearch = async (searchQuery,k=10) => {
       or (ETOB_ENSEIGNE_LIB like '%${searchQuery}%' and ETOB_ENSEIGNE_LIB IS NOT NULL)
       or (ETOB_SIRET like '%${searchQuery}%' and ETOB_SIRET IS NOT NULL)`
   try{
-    await sql.connect('mssql://sa:password1&@localhost:1433/STG_IrisSora');
+    await sql.connect(config.sql_db_url);
     let response = await sql.query(query);
     sql.close();
     return response.recordsets[0];
@@ -20,7 +21,7 @@ module.exports.getTopEnterpriseBySearch = async (searchQuery,k=10) => {
 module.exports.getEnterpriseById = async (id) => {
   let query = `select * from ETABLISSEMENT_OBSERVE where ETOB_IDENT = ${id}`
   try{
-    await sql.connect('mssql://sa:password1&@localhost:1433/STG_IrisSora');
+    await sql.connect(config.sql_db_url);
     let response = await sql.query(query)
     sql.close()
     return response.recordsets[0]

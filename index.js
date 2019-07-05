@@ -18,6 +18,7 @@ app.use(function(req, res, next) {
 var port = process.env.PORT || 8080;
 
 registerRoutes(app);
+app.use('/',express.static('front'));
 
 app.listen(port);
 

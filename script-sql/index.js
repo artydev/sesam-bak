@@ -1,5 +1,6 @@
 const sql = require('mssql')
 const nano = require('nano')('http://localhost:5984');
+const config = require('./config');
 
 const queryTable = [
     {
@@ -48,7 +49,7 @@ const queryTable2 = [
 let main = async () => {
     try {
         // await sql.connect('mssql://sesameTestApp:16amTsTApp!@devirissql\\MSSQL_TSTIRIS/DATAWH');
-        await sql.connect('mssql://sa:password1&@localhost:1433/STG_IrisSora');
+        await sql.connect(config.sql_db_url);
         console.log("connected")
         for (let {query,table,idField} of queryTable){
         await copyDBwithSQLChunks(query,table,idField);
