@@ -2,7 +2,7 @@ const sql = require('mssql')
 const nano = require('nano')('http://localhost:5984');
 const config = require('./config');
 
-const queryTable = [
+const queryTable2 = [
     {
         table:'dossiers',
         query:`select * from DOSSIER
@@ -11,7 +11,7 @@ const queryTable = [
         idField: 'DOSSIER_IDENT'
 },
 ];
-const queryTable2 = [
+const queryTable = [
         {
             table:'produit-cpf',
             query:`select * from PRODUIT_CPF`,
@@ -71,7 +71,7 @@ let copyDBwithSQLChunks = (query,tableName,idField) =>{
 
         request.on('row', row => {
             rowsToProcess.push(row);
-            if (rowsToProcess.length >= 100000) {
+            if (rowsToProcess.length >= 10000) {
                 request.pause();
                 processRows();
             }

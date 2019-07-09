@@ -12,6 +12,7 @@
   "dependencies": {
     "bluebird": "^3.5.5",
     "express": "^4.17.1",
+    "js2xmlparser": "^4.0.0",
     "mssql": "^5.1.0",
     "nano": "^8.1.0",
     "nodemon": "^1.19.1",
