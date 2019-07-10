@@ -12,7 +12,7 @@ router.get('/:id',async (req,res)=> {
         }
     }catch(err){
         console.log(err);
-        res.status(400).send("Internal server error.")
+        res.status(500).send(err)
     }
 })
 

@@ -2,10 +2,12 @@ var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
 const registerRoutes = require('./routes/api');
-const js2xmlparser = require('js2xmlparser')
+const {startSql} = require('./sql');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+
+startSql()
 
 app.use(function(req, res, next) {
   res.header('Access-Control-Allow-Origin', '*');

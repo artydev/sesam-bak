@@ -1,5 +1,4 @@
-const sql = require('mssql')
-const nano = require('nano')('http://localhost:5984');
+const {sql} = require('../sql');
 const config = require('../config');
 
 const queryTable2 = [
@@ -47,16 +46,9 @@ const getQueryTable = (idAgent) => ({
     });
 
 module.exports =  getDataByUserId = async (tableKey,idAgent) => {
-    try{
         // await sql.connect('mssql://sesameTestApp:16amTsTApp!@devirissql\\MSSQL_TSTIRIS/DATAWH');
-        await sql.connect(config.sql_db_url);
-        let response = {}
         let {query,table,idField} = getQueryTable(idAgent)[tableKey]
         let recordsets = await sql.query(query);
-        response[table] = recordsets['recordsets'][0]
-        sql.close();
+        let response = recordsets['recordsets'][0].map(doc => ({...doc, _id: doc[idField].toString()}))
         return response;
-    }catch(err){
-        sql.close();throw err
-    }
 } 
