@@ -4,11 +4,11 @@ const { getUserById} = require('../controllers/user.controller');
 
 router.get('/:id',async (req,res)=> {
     try{
-        let enterprises = await getUserById(req.params.id);
-        if (enterprises.length == 0){
-            res.status(404).send("No enterprise with this id can be found.");
+        let agents = await getUserById(req.params.id);
+        if (agents.length == 0){
+            res.status(404).send("No agent with this id can be found.");
         }else{
-            res.status(200).json(enterprises[0]);
+            res.status(200).json(agents[0]);
         }
     }catch(err){
         console.log(err);
