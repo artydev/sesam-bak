@@ -5,13 +5,12 @@ const nano = require('nano')(couchdb_url);
 let deleteDocuments = async (table,query) =>{
     let docsToBeDeleted = await table.find({selector:query})
                                 .then(list => list.docs);
-    console.log(docsToBeDeleted);
     let deletedVisites = docsToBeDeleted.map(visite => ({_id:visite._id,_rev:visite._rev, _deleted:true}));
     await table.bulk({docs:deletedVisites});
     return docsToBeDeleted;
 }
 
-module.exports.deleteSynchronizedVisites = async () => {
+module.exports.deleteExportedVisites = async () => {
     let newVisitesDb = nano.use('new-visites');
     let newControlesDb = nano.use('new-controles');
     let documentDb = nano.use('documents');
@@ -30,7 +29,6 @@ module.exports.deleteSynchronizedVisites = async () => {
             }
             return doc
         })
-        console.log(deletedDocuments)
         await documentDb.bulk({docs:deletedDocuments});
     } )
     return Promise.all(visitesToBeDeleted);
