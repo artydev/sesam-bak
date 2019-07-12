@@ -4,10 +4,10 @@ module.exports = {
 
     job:{
         //launch the job every day at 8h30 (the syntax is 'mm hh * * *') see node-schedule (https://www.npmjs.com/package/node-schedule)
-        dev_job_time : '30 8 * * *',
+        job_time : '30 8 * * *',
         xml_file_folder:"/Users/antoine/xmlfiles/",
         number_of_day: 2, //the number of day to keep the document in couchdb after having been given to sora
-        job_time : '20 * * * * *', //to remove just for dev purpose
+        dev_job_time : '20 * * * * *', //to remove just for dev purpose
     },
 
      dev_sql_config:{
