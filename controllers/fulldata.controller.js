@@ -1,5 +1,5 @@
 const {sql} = require('../sql');
-const config = require('../config');
+const {connectSql,closeSql} = require('../sql');
 
 const queryTable2 = [
     {
@@ -47,8 +47,10 @@ const getQueryTable = (idAgent) => ({
 
 module.exports =  getDataByUserId = async (tableKey,idAgent) => {
         // await sql.connect('mssql://sesameTestApp:16amTsTApp!@devirissql\\MSSQL_TSTIRIS/DATAWH');
+        let sql = await connectSql();
         let {query,table,idField} = getQueryTable(idAgent)[tableKey]
         let recordsets = await sql.query(query);
-        let response = recordsets['recordsets'][0].map(doc => ({...doc, _id: doc[idField].toString()}))
+        let response = recordsets['recordsets'][0].map(doc => ({...doc, _id: doc[idField].toString()}));
+        closeSql();
         return response;
 } 
