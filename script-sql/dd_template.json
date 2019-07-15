@@ -1,6 +1,0 @@
-{
-    "_id":"_design/filters",
-    "filters":{ 
-        "by_user":"function(doc,req){ return doc.AGENT_DD_IDENT == req.query.AGENT_DD_IDENT;}"
-    }
-}
