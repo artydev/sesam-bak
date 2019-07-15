@@ -4,7 +4,6 @@ const config  = require('./config');
 
 let connectSql = async (numberOfRetry = 5) => {
   try{
-
       await sql.connect({
         ...config.sql_config,
         requestTimeout : 25000
@@ -20,8 +19,7 @@ let connectSql = async (numberOfRetry = 5) => {
 
 }
 
-//let closeSql = () => sql.close();
-let closeSql = () => undefined;
+let closeSql = () => sql.close();
 
 
 
