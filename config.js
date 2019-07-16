@@ -11,13 +11,13 @@ module.exports = {
         dev_job_time : '20 * * * * *', //to remove just for dev purpose
     },
 
-     dev_sql_config:{
+    sql_config:{
         user: 'sa',
         password: 'password1&',
         server: 'localhost',
         database: 'STG_IrisSora'
     },
-    sql_config:{
+    real_sql_config:{
         user: 'sesameTestApp',
         password: '16amTsTApp!',
         server: 'devirissql\\MSSQL_TSTIRIS',
