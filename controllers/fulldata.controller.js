@@ -1,15 +1,7 @@
 const {sql} = require('../sql');
 const {connectSql,closeSql} = require('../sql');
 
-const queryTable2 = [
-    {
-        table:'dossiers',
-        query:`select * from DOSSIER
-        join TACHE_PROGRAMMEE on TACHE_PROGRAMMEE.TAPR_IDENT = DOSSIER.TAPR_IDENT
-        where RESPONSABLE_AGENT_DD_IDENT > 4500 and RESPONSABLE_AGENT_DD_IDENT<5000`,
-        idField: 'DOSSIER_IDENT'
-},
-];
+
 const getQueryTable = (idAgent) => ({
         cpf: {
             table:'produit-cpf',
@@ -48,7 +40,7 @@ const getQueryTable = (idAgent) => ({
 module.exports =  getDataByUserId = async (tableKey,idAgent) => {
         // await sql.connect('mssql://sesameTestApp:16amTsTApp!@devirissql\\MSSQL_TSTIRIS/DATAWH');
         let sql = await connectSql();
-        let {query,table,idField} = getQueryTable(idAgent)[tableKey]
+        let {query,idField} = getQueryTable(idAgent)[tableKey]
         let recordsets = await sql.query(query);
         let response = recordsets['recordsets'][0].map(doc => ({...doc, _id: doc[idField].toString()}));
         closeSql();
