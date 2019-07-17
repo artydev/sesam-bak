@@ -31,13 +31,12 @@ module.exports.exportVisitesWithInfos = async (writePath) => {
     let documentDb = nano.use('documents');
     let visitesToBeSync = await newVisitesDb.find({selector:{toBeExported: true,}})
                                 .then(list => list.docs);
-
     let visitesWithFullInfo =  await Promise.all(visitesToBeSync.map(async visite =>{
         let controles = await newControlesDb.find({selector:{VISITE_IDENT: visite.VISITE_IDENT}}).then(list=>list.docs.map(controle=>({...controle,trame:undefined})));
-        let documents = await documentDb.find({selector: {visite: { $elemMatch: {$eq: visite.VISITE_IDENT }}}}).then(list=>list.docs);
+        let documents = await documentDb.find({selector: {visite: { $elemMatch: {$eq: visite.VISITE_IDENT }}}})
+                                .then(list=>list.docs.filter(doc => doc.categorie == 'photo' || doc.categorie == 'joint'));
         return {...visite,trame:undefined,"ACTIONS":{"ACTION":controles}, "FICHIERS" : {"FICHIER": documents} }
     } ))
-
     await writeXmlFiles(writePath,visitesWithFullInfo);
 
     let updatedVisites = visitesToBeSync.map(visite => ({...visite,toBeExported: false, toBeDeletedAt:getDeleteDate()}));

@@ -20,7 +20,7 @@ module.exports.deleteExportedVisites = async () => {
         await deleteDocuments(newControlesDb,{VISITE_IDENT: visite.VISITE_IDENT}).then(list=>list.docs);
         let documents = await documentDb.find({selector: {visite: { $elemMatch: {$eq: visite.VISITE_IDENT }}}}).then(list=>list.docs);
         let deletedDocuments = documents.map(doc=>{
-            if (doc.visite.length ==1){
+            if (doc.visite.length ==1 && doc.dossier !== null){
                 return {_id: doc._id,_rev: doc._rev, _deleted:true}
             }
             var index = doc.visite.indexOf(visite.VISITE_IDENT);

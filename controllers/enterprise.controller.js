@@ -26,7 +26,7 @@ module.exports.getVisitesByEntreprise = async (ETOB_IDENT) => {
 
 module.exports.getEnterpriseById = async (id) => {
   let query = `select ETOB_ADR1,ETOB_ADR2,ETOB_ADR3,ETOB_IDENT, ETOB_SIRET,
-   ETOB_ENSEIGNE_LIB, ETOB_RAISON_SOCIALE, ETOB_ADRCP, ETOB_ADRVILLE,NAF_LIBELLE
+   ETOB_ENSEIGNE_LIB, ETOB_RAISON_SOCIALE, ETOB_ADRCP, ETOB_ADRVILLE,NAF_LIBELLE,ETOB_NOM_RESPONSABLE
    from ETABLISSEMENT_OBSERVE where ETOB_IDENT = ${id}`
     let response =  await execSql(query);
     return response.recordsets[0]
