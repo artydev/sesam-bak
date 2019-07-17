@@ -2,6 +2,7 @@ const schedule = require('node-schedule');
 const config = require('../config');
 const {exportVisitesWithInfos} = require('./visiteExport') ;
 const {deleteExportedVisites} = require('./deleteDocument');
+const logger = require('../logger');
 
 
 module.exports.registerJob = () =>{
@@ -9,9 +10,9 @@ module.exports.registerJob = () =>{
         try{
             await exportVisitesWithInfos(config.job.xml_file_folder);
             await deleteExportedVisites();
-            console.log('The job finished executing at '+new Date());
+            logger.info('The job finished executing at '+new Date());
         }catch(err){
-            console.log(err);
+            logger.error(err);
         }
     });
 }

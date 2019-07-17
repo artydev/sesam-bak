@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const { getUserById} = require('../controllers/user.controller');
+const logger = require('../logger');
 
 
 router.get('/:id',async (req,res)=> {
@@ -11,7 +12,7 @@ router.get('/:id',async (req,res)=> {
             res.status(200).json(agents[0]);
         }
     }catch(err){
-        console.log(err);
+        logger.error(err);
         res.status(500).send(err)
     }
 })

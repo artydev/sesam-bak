@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const {getTopEnterpriseBySearch, getEnterpriseById,getVisitesByEntreprise} = require('../controllers/enterprise.controller');
+const logger = require('../logger');
 
 router.get('/search',async (req,res)=> {
     try{
@@ -22,7 +23,7 @@ router.get('/:id',async (req,res)=> {
             res.status(200).json({...enterprises[0], visites});
         }
     }catch(err){
-        console.log(err);
+        logger.error(err);
         res.status(500).send(err)
     }
 })
