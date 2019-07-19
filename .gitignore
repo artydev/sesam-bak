@@ -2,3 +2,4 @@
 script-sql/config.js
 XmlVisiteSesam
 debug.log
+node_modules
