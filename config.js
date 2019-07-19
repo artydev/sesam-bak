@@ -16,7 +16,7 @@ module.exports = {
         server: 'localhost',
         database: 'STG_IrisSora'
     },
-    real_sql_config:{
+    sql_config:{
         user: 'sesameTestApp',
         password: '16amTsTApp!',
         server: 'devirissql\\MSSQL_TSTIRIS',
